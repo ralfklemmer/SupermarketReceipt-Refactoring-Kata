@@ -32,9 +32,9 @@ public class Teller {
                 .map(adapter::toReceiptItem)
                 .collect(Collectors.toList());
 
-        Receipt receipt = new Receipt(items);
+        Optional<Discount> discount = theCart.handleOffers(this.offers, this.catalog);
 
-        Optional<Discount> discount = theCart.handleOffers(receipt, this.offers, this.catalog);
+        Receipt receipt = new Receipt(items);
         discount.ifPresent(receipt::addDiscount);
 
         return receipt;

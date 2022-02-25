@@ -33,7 +33,7 @@ public class ShoppingCart {
         }
     }
 
-    public Optional<Discount> handleOffers(Receipt receipt, Map<Product, Offer> offers, SupermarketCatalog catalog) {
+    public Optional<Discount> handleOffers(Map<Product, Offer> offers, SupermarketCatalog catalog) {
         for (Product p: productQuantities().keySet()) {
             double quantity = productQuantities.get(p);
             if (offers.containsKey(p)) {
