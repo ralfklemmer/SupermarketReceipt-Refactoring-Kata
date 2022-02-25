@@ -1,4 +1,6 @@
-package dojo.supermarket.model;
+package dojo.supermarket.shopping;
+
+import dojo.supermarket.product.Product;
 
 public class ProductQuantity {
     private final Product product;

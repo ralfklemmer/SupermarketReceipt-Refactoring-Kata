@@ -1,10 +1,15 @@
 package dojo.supermarket.model;
 
 import dojo.supermarket.ReceiptPrinter;
+import dojo.supermarket.discount.SpecialOfferType;
+import dojo.supermarket.product.Product;
+import dojo.supermarket.product.ProductUnit;
+import dojo.supermarket.product.SupermarketCatalog;
+import dojo.supermarket.receipt.Receipt;
+import dojo.supermarket.receipt.Teller;
+import dojo.supermarket.shopping.ShoppingCart;
 import org.approvaltests.Approvals;
 import org.junit.jupiter.api.Test;
-
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,4 +1,10 @@
-package dojo.supermarket.model;
+package dojo.supermarket.receipt;
+
+import dojo.supermarket.discount.SpecialOfferType;
+import dojo.supermarket.product.Product;
+import dojo.supermarket.shopping.ProductQuantity;
+import dojo.supermarket.product.SupermarketCatalog;
+import dojo.supermarket.shopping.ShoppingCart;
 
 import java.util.HashMap;
 import java.util.List;

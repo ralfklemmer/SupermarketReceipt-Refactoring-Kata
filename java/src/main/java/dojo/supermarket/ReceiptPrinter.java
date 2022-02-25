@@ -1,6 +1,9 @@
 package dojo.supermarket;
 
-import dojo.supermarket.model.*;
+import dojo.supermarket.discount.Discount;
+import dojo.supermarket.product.ProductUnit;
+import dojo.supermarket.receipt.Receipt;
+import dojo.supermarket.receipt.ReceiptItem;
 
 import java.util.Locale;
 

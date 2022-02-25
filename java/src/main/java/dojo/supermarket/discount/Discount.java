@@ -1,4 +1,6 @@
-package dojo.supermarket.model;
+package dojo.supermarket.discount;
+
+import dojo.supermarket.product.Product;
 
 public class Discount {
     private final String description;
