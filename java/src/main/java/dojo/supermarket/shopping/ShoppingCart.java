@@ -7,10 +7,7 @@ import dojo.supermarket.product.SupermarketCatalog;
 import dojo.supermarket.receipt.Offer;
 import dojo.supermarket.receipt.Receipt;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ShoppingCart {
 
@@ -36,7 +33,7 @@ public class ShoppingCart {
         }
     }
 
-    public void handleOffers(Receipt receipt, Map<Product, Offer> offers, SupermarketCatalog catalog) {
+    public Optional<Discount> handleOffers(Receipt receipt, Map<Product, Offer> offers, SupermarketCatalog catalog) {
         for (Product p: productQuantities().keySet()) {
             double quantity = productQuantities.get(p);
             if (offers.containsKey(p)) {
@@ -71,10 +68,10 @@ public class ShoppingCart {
                     double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 5 * unitPrice);
                     discount = new Discount(p, x + " for " + offer.argument, -discountTotal);
                 }
-                if (discount != null)
-                    receipt.addDiscount(discount);
+                return Optional.ofNullable(discount);
             }
 
         }
+        return Optional.empty();
     }
 }

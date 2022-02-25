@@ -10,6 +10,10 @@ public class Receipt {
     private List<ReceiptItem> items = new ArrayList<>();
     private List<Discount> discounts = new ArrayList<>();
 
+    public Receipt(List<ReceiptItem> items) {
+        this.items = items;
+    }
+
     public Double getTotalPrice() {
         double total = 0.0;
         for (ReceiptItem item : this.items) {
@@ -19,10 +23,6 @@ public class Receipt {
             total += discount.getDiscountAmount();
         }
         return total;
-    }
-
-    public void addProduct(Product p, double quantity, double price, double totalPrice) {
-        this.items.add(new ReceiptItem(p, quantity, price, totalPrice));
     }
 
     public List<ReceiptItem> getItems() {

@@ -1,5 +1,6 @@
 package dojo.supermarket.receipt;
 
+import dojo.supermarket.discount.Discount;
 import dojo.supermarket.discount.SpecialOfferType;
 import dojo.supermarket.product.Product;
 import dojo.supermarket.shopping.ProductQuantity;
@@ -9,6 +10,8 @@ import dojo.supermarket.shopping.ShoppingCart;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Teller {
 
@@ -24,18 +27,32 @@ public class Teller {
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
-        Receipt receipt = new Receipt();
-        List<ProductQuantity> productQuantities = theCart.getItems();
-        for (ProductQuantity pq: productQuantities) {
-            Product p = pq.getProduct();
-            double quantity = pq.getQuantity();
-            double unitPrice = this.catalog.getUnitPrice(p);
-            double price = quantity * unitPrice;
-            receipt.addProduct(p, quantity, unitPrice, price);
-        }
-        theCart.handleOffers(receipt, this.offers, this.catalog);
+        ReceiptItemAdapter adapter = new ReceiptItemAdapter(catalog);
+        List<ReceiptItem> items = theCart.getItems().stream()
+                .map(adapter::toReceiptItem)
+                .collect(Collectors.toList());
+
+        Receipt receipt = new Receipt(items);
+
+        Optional<Discount> discount = theCart.handleOffers(receipt, this.offers, this.catalog);
+        discount.ifPresent(receipt::addDiscount);
 
         return receipt;
     }
 
+    public class ReceiptItemAdapter {
+        private final SupermarketCatalog catalog;
+
+        public ReceiptItemAdapter(SupermarketCatalog catalog) {
+            this.catalog = catalog;
+        }
+
+        public ReceiptItem toReceiptItem(ProductQuantity pq) {
+            Product p = pq.getProduct();
+            double quantity = pq.getQuantity();
+            double unitPrice = catalog.getUnitPrice(p);
+            double price = quantity * unitPrice;
+            return new ReceiptItem(p, quantity, unitPrice, price);
+        }
+    }
 }
